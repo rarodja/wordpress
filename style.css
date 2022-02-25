@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
+
+*{
+    padding: 0;
+    margin: 0;
+}
+body{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.contenedor-fluido{
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+    background-color: beige;
+}
+.contenedor{
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.minicontenedor{
+    background-color: whitesmoke;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    border: 1px solid grey;
+    padding: 20px;
+    margin: 20px;
+    justify-content: center;
+}
+.minicontenedor2{
+    margin: 20px;
+    background-color:whitesmoke;
+    border: 1px solid gray;
+    width: 70%;
+    padding: 20px;
+    text-align: justify;
+}
+.negrita{
+    font-weight: bold;
+}
+.centrado{
+    text-align: center;
+}
+.codigo{
+    font-family: 'Source Code Pro';
+    color: white;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #2b2b2b;
+}

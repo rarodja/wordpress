@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>LocalWP Performance en Windows</title>
+</head>
+
+<body>
+    <div class="contenedor-fluido">
+        <h1>LocalWP Performance en Windows</h1>
+    </div>
+    <br>
+    <h2 class="centrado">Crear el sitio con esta configuración:</h2>
+    <div class="contenedor">
+        <div class="minicontenedor">
+            <p class="negrita">PHP Versión</p>
+            <p>8.0.0</p>
+        </div>
+        <div class="minicontenedor">
+            <p class="negrita">Web Server</p>
+            <p>nginx 1.16.0</p>
+        </div>
+        <div class="minicontenedor">
+            <p class="negrita">Database</p>
+            <p>MariaDB 10.4.10</p>
+        </div>
+        <div class="minicontenedor2">
+            <h3><li>Desactivar XDEBUG</li></h3>
+            <br>
+            <p>La extensión Xdebug de PHP sirve, mayormente, para debugear, rastrear y analizar nuestro código. Si lo
+                configuras adecuadamente verás cómo se está ejecutando tu código junto paso por paso.
+
+                Xdebug viene habilitado por default en cada sitio creado por Local WP; sin embargo, la extensión hace
+                más lento la carga de tu sitio (al menos en Local WP).<br>
+
+                Para desactivarlo, debes modificar el archivo <span class="negrita">php.ini.hbs</span> (este archivo es
+                el <span class="negrita">php.ini</span> de cualquier
+                servidor) de tu sitio. Éste se encuentra dentro de la carpeta <span
+                    class="negrita">"nombre-del-sitio\conf\php"</span> En mi caso, el archivo se encuentra en:</p>
+            <br>
+            <div class="codigo">
+                <span>E:\Sites\local-performance\conf\php\php.ini.hbs</span>
+            </div>
+            <br>
+            <p>Abre el archivo con cualquier editor de textos y verás la configuración PHP de tu sitio.
+
+                Si vas hasta abajo, las últimas líneas de código, verás lo siguiente:</p>
+            <br>
+            <div class="codigo">
+                <span>
+                    [xdebug]<br>
+                    {{#if os.windows}}<br>
+                    zend_extension = php_xdebug.dll<br>
+                    {{else}}<br>
+                    zend_extension = {{extensionsDir}}/xdebug.so<br>
+                    {{/if}}<br>
+                    <br>
+                    xdebug.mode=debug<br>
+                    xdebug.client_port="9000"<br>
+                    xdebug.start_with_request=yes<br>
+                    xdebug.discover_client_host=yes<br>
+                </span>
+            </div>
+            <br>
+            <p>
+                Esas líneas de código hay que comentarlas o borrarlas.
+                <br>
+                Guarda el archivo y reinicia tu sitio Local donde has hecho el cambio.
+            </p>
+            <br>
+            <h3><li>DB_HOST con 127.0.0.1</li></h3>
+            <br>
+            <p>
+                La constante <span class="negrita">DB_HOST</span> contiene el nombre del host donde se conectará nuestra
+                base de datos, como MySQL o
+                MariaDB.
+
+                Por default, la constante <span class="negrita">DB_HOST</span> es igual a <span
+                    class="negrita">localhost</span>. Este valor equivale a nuestra computadora actual
+                o, como número IP, <span class="negrita">127.0.0.1</span>.<br>
+
+                El problema de usar localhost en la constante <span class="negrita">DB_HOST</span> es que el navegador y
+                computadora necesitan hacer
+                una búsqueda de DNS para identificar a qué, quién y dónde pertenece <span
+                    class="negrita">localhost</span>.<br>
+
+                Pero, para nuestro simple sitio creado en Local no es necesario aplicar DNS, ¿verdad?
+
+                Aquí es donde viene el truco.<br>
+
+                Debemos cambiar el valor de <span class="negrita">DB_HOST</span>, de <span
+                    class="negrita">localhost</span> a <span class="negrita">127.0.0.1</span>.
+
+                Encuentra el archivo <span class="negrita">wp-config.php</span> de tu sitio Local. En mi caso, ese
+                archivo se encuentra en la
+                siguiente ruta:
+            </p>
+            <br>
+            <div class="codigo">
+                <p>
+                    E:\Sites\local-performance\app\public\wp-config.php
+                </p>
+            </div>
+            <br>
+            <p>
+                Abre el archivo <span class="negrita">wp-config.php</span> con tu editor de textos, y dentro del archivo
+                encuentra la constante <span class="negrita">DB_HOST:</span>
+            </p>
+            <br>
+            <div class="codigo">
+                <p>
+                    /** MySQL hostname */<br>
+                    define( 'DB_HOST', 'localhost' );
+                </p>
+            </div>
+            <br>
+            <p>Reemplaza el valor <span class="negrita">localhost</span> por <span class="negrita">127.0.0.1</span>. Debe quedar de la siguiente forma:</p>
+            <br>
+            <div class="codigo">
+                <p>
+                    /** MySQL hostname */<br>
+                    define( 'DB_HOST', '127.0.0.1' );
+                </p>
+            </div>
+            <br>
+            <p>Guarda los cambios y reinicia tu sitio Local.</p><br>
+            <p>El tiempo de carga original fue de 3.40 segundos y ahora tenemos un tiempo de carga de 0.06 segundos. LISTO!</p>
+        </div>
+    </div>
+
+</body>
+
+</html>
